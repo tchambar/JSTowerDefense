@@ -1,0 +1,75 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300,100italic,100);
+h1 {
+    text-align:center;
+    color:#293133;
+    font-weight:200;
+    font-size: 400%;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+#signin, #signup {
+    padding: 7% 15%;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 200%;
+    font-weight: 100;
+    color: rgba(255,255,255,0.9);
+    box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+    text-shadow: 4px 2px 0 rgba(69,74,81,0.66) ;
+}
+
+#joinus, #form-signin, #form-signup {
+    display: none;
+}
+
+#form-signup, #form-signin {
+    top: 60%;
+
+}
+
+.zoom {
+    animation-name: zoomIn;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    }
+}
+
+#signup{
+    background: #5f6466;
+}
+
+#signin {
+    background: #A9A9A9;
+}
+
+#alreadymember {
+    position: relative;
+    float: left;
+    left:30%;
+    top:40%;
+}
+
+#notyetmember {
+    position: relative;
+    float: left;
+    left:50%;
+    top:40%;
+}
+
+
+
+
