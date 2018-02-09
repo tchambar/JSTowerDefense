@@ -7,4 +7,4 @@ Tom Chambaretaud, Antoine Guillory
 ### Student of our university
 No, obviously, this is a personnal project !
 ### Other
-Feel free to use it !
+Feel free to use it ! 
