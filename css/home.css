@@ -1,18 +1,27 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300,100italic,100);
+body{
+    font-family: 'Roboto', sans-serif;
+    background-image:linear-gradient(144deg, #ffffff, #d9faf8, #edf8f8);
+    animation: backg 8s ease infinite;
+    background-size: 600%, 600%;
+
+}
+@keyframes backg {
+    0%{background-position:81% 0%}
+    50%{background-position:20% 100%}
+    100%{background-position:81% 0%}
+}
+
 h1 {
     text-align:center;
     color:#293133;
     font-weight:200;
     font-size: 400%;
-    font-family: 'Roboto', sans-serif;
 }
 
-
-
-#signin, #signup {
+#playbtn, #faqbtn {
     padding: 7% 15%;
     border-radius: 10px;
-    font-family: 'Roboto', sans-serif;
     font-size: 200%;
     font-weight: 100;
     color: rgba(255,255,255,0.9);
@@ -20,13 +29,28 @@ h1 {
     text-shadow: 4px 2px 0 rgba(69,74,81,0.66) ;
 }
 
-#joinus, #form-signin, #form-signup {
+#faqbtn{
+    background: #5f6466;
+}
+
+#playbtn {
+    background: #A9A9A9;
+}
+
+#game, #faq {
     display: none;
 }
 
-#form-signup, #form-signin {
-    top: 60%;
-
+#faq {
+    position: absolute;
+    bottom:-10%;
+    font-size: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    align-items: center;
+    top: 35%;
+    left: 12%;
 }
 
 .zoom {
@@ -48,28 +72,30 @@ h1 {
     }
 }
 
-#signup{
-    background: #5f6466;
-}
-
-#signin {
-    background: #A9A9A9;
-}
-
-#alreadymember {
+#playdiv {
     position: relative;
     float: left;
     left:30%;
     top:40%;
 }
 
-#notyetmember {
+#faqdiv {
     position: relative;
-    float: left;
-    left:50%;
+    float: right;
+    left:-32%;
     top:40%;
 }
 
-
-
-
+footer {
+    position: fixed;
+    float:bottom;
+    color:aliceblue;
+    text-align: center;
+    align-content: center;
+    background-color: darkgray;
+    width: 100%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    bottom:0;
+    font-size: 75%;
+}
