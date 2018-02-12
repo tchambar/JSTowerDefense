@@ -12,8 +12,17 @@
 <body>
 <h1>Choix de la carte</h1>
 <?php
-    //Il reste a définir comment nous allons charger les maps. Quel format ? Quel modèle appliquer a notre carte ?
-    // Comment gérer la grille ?
+    include_once("./credentials.php");
+    $dbh = new PDO('mysql:host=mysql-antgui.alwaysdata.net;dbname=antgui_sql', $user, $mdp);
+    $stmt = $dbh->query('SELECT * FROM MAPS');
+    while ($row = $stmt->fetch()) {
+        $ico = $row['MAP_ICON'];
+        echo "<img class=\"mapsicons\" src=\"../img/$ico\" alt=\"$ico\"/>";
+        echo $row['MAP_MODEL'] . "\n";
+        echo $row['MAP_NAME'] . "\n";
+    }
+    $dbh = null;
+    $stmt = null;
 ?>
 <h2>En cours de construction</h2>
 <footer>
