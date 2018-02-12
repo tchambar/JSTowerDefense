@@ -1,50 +1,55 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300,100italic,100);
-body{
+
+body {
     font-family: 'Roboto', sans-serif;
-    background-image:linear-gradient(270deg, #88f86c, #edb96a);
+    background-image: linear-gradient(270deg, #88f86c, #edb96a);
     animation: backg 4s ease infinite;
     background-size: 600%, 600%;
 }
 
 @keyframes backg {
-    0%{background-position:81% 0}
-    50%{background-position:20% 100%}
-    100%{background-position:81% 0}
+    0% {
+        background-position: 81% 0
+    }
+    50% {
+        background-position: 20% 100%
+    }
+    100% {
+        background-position: 81% 0
+    }
 }
 
 h1 {
-    text-align:center;
-    left:auto;
-    right:auto;
-    color:#293133;
-    font-weight:200;
+    text-align: center;
+    left: auto;
+    right: auto;
+    color: #293133;
+    font-weight: 200;
     font-size: 400%;
 }
 
 h2 {
-    text-align:center;
-    color:#293133;
-    font-weight:200;
+    text-align: center;
+    color: #293133;
+    font-weight: 200;
     font-size: 200%;
 }
-
-
 
 #playbtn, #faqbtn {
     padding: 7% 15%;
     border-radius: 10px;
     font-size: 200%;
     font-weight: 100;
-    color: rgba(255,255,255,0.9);
-    box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
-    text-shadow: 4px 2px 0 rgba(69,74,81,0.66) ;
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 4px 2px 0 rgba(69, 74, 81, 0.66);
 }
 
-#faqbtn{
+#faqbtn {
     background: #5f6466;
 }
 
-#faqbtn:hover{
+#faqbtn:hover {
     background: #5f3440;
 }
 
@@ -55,7 +60,6 @@ h2 {
 #playbtn:hover {
     background: #E9C9C9;
 }
-
 
 #game, #faq {
     display: none;
@@ -72,8 +76,8 @@ h2 {
     padding: 1% 1% 0 0;
     text-align: center;
     align-items: center;
-    left:auto;
-    right:auto;
+    left: auto;
+    right: auto;
     top: 20%;
     bottom: 10%;
 
@@ -81,7 +85,7 @@ h2 {
 
 .zoom {
     animation-name: zoomIn;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: both;
 }
 
@@ -101,35 +105,35 @@ h2 {
 #playdiv {
     position: relative;
     float: left;
-    left:30%;
-    top:40%;
+    left: 30%;
+    top: 40%;
 }
 
 #faqdiv {
     position: relative;
     float: right;
-    left:-32%;
-    top:40%;
+    left: -32%;
+    top: 40%;
 }
 
 footer {
     position: fixed;
-    float:bottom;
-    color:aliceblue;
+    float: bottom;
+    color: aliceblue;
     text-align: center;
     align-content: center;
     background-color: darkgray;
     width: 100%;
     padding-top: 1%;
     padding-bottom: 1%;
-    bottom:0;
+    bottom: 0;
     font-size: 65%;
 }
 
 #triangle {
-    position:absolute;
+    position: absolute;
     float: top;
-    top:0;
+    top: 0;
 }
 
 .w3c {
