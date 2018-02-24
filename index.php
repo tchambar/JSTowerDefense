@@ -22,10 +22,10 @@
     <div id="faq">
 
     </div>
-<footer>
-<?php
-    include("html/footer.html");
-?>
-</footer>
+    <footer>
+    <?php
+        include("html/footer.html");
+    ?>
+    </footer>
 </body>
 </html>

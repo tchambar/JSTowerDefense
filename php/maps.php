@@ -10,25 +10,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<h1>Choix de la carte</h1>
-<?php
-    include_once("./credentials.php");
+    <h1>Choix de la carte</h1>
+    <form method="post" action="./game.php">
+    <?php
+        include_once("./credentials.php");
+    echo '<select name="choixmap">';
     $dbh = new PDO('mysql:host=mysql-antgui.alwaysdata.net;dbname=antgui_sql', $user, $mdp);
-    $stmt = $dbh->query('SELECT * FROM MAPS');
-    while ($row = $stmt->fetch()) {
-        $ico = $row['MAP_ICON'];
-        echo "<img class=\"mapsicons\" src=\"../img/$ico\" alt=\"$ico\"/>";
-        echo $row['MAP_MODEL'] . "\n";
-        echo $row['MAP_NAME'] . "\n";
-    }
+        $stmt = $dbh->query('SELECT * FROM MAPS');
+        while ($row = $stmt->fetch()) {
+            $ico = $row['MAP_ICON'];
+            echo "<div class='mapsdivs'>";
+            //echo "<p>".$row['MAP_MODEL']."</p>";
+            echo "<option value=\"".$row['MAP_ICON']."\">".$row['MAP_NAME'].'</option>';
+            echo "</div>";
+        }
+    echo '</select>';
     $dbh = null;
     $stmt = null;
-?>
-<h2>En cours de construction</h2>
-<footer>
-    <?php
-        include_once("../html/footer.html");
     ?>
-</footer>
+    <button type="submit">Jouer !</button>
+    <h2>En cours de construction</h2>
+    <footer>
+        <?php
+            include_once("../html/footer.html");
+        ?>
+    </footer>
 </body>
 </html>
