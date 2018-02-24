@@ -1,0 +1,14 @@
+Conception JSTowerDefense :
+
+	- Index : Nickel.
+
+	- Sélection de carte : les cartes seront stockés dans une base de données qui mappera "fichier map", miniature et nom de la carte.
+		-> On aura un php qui énoncera les différentes cartes par des requètes SQL.
+
+	- Jeux : Fichiers séparés pour chaque class.
+		-> Grosse class générale puis des class héritées pour les spécificités.
+		Tower : cadence de tir, dégâts, chance coup critique, niveau, prix à la revente, prix à l'achat.
+		Unit : hp, vitesse, dégats.
+			-> spécifications des towers (feu glace par exemple)
+
+	- Aspect Visuel : Epuré, le thème est à définir.
