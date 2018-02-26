@@ -27,8 +27,8 @@ function defineDirection(pos, road) {
 }
 
 class Ennemy extends Entity {
-    construtor(canvas, pos, maxHp, speed, damage, road) {
-        super(pos, canvas);
+    constructor(canvas, maxHp, speed, damage, road) {
+        super(road[0], canvas);
 
         this.maxHp = maxHp;
         this.hp = maxHp;
@@ -37,7 +37,7 @@ class Ennemy extends Entity {
         this.direction = defineDirection(this.getPos(), road);
 
         this.road = road;
-        this.partRoad = 0;
+        this.partRoad = 1;
     }
 
     getMaxHp() {
@@ -56,10 +56,14 @@ class Ennemy extends Entity {
         return this.damage;
     }
 
+    getDirection() {
+        return this.direction;
+    }
+
     move() {
         var n = this.speed;
         while(n != 0) {
-            if (this.direction == SOUTH) {
+            if (this.direction == EAST) {
                 var new_x = this.pos.getx() + n;
                 if (new_x >= this.road[this.partRoad].getx()) {
                     n = (new_x - this.road[this.partRoad].getx());
@@ -75,7 +79,7 @@ class Ennemy extends Entity {
                     n = 0;
                 }
             }
-            if (this.direction == NORTH) {
+            if (this.direction == WEST) {
                 var new_x = this.pos.getx() - n;
                 if (new_x <= this.road[this.partRoad].getx()) {
                     n = (new_x - this.road[this.partRoad].getx());
@@ -91,7 +95,7 @@ class Ennemy extends Entity {
                     n = 0;
                 }
             }
-            if (this.direction == EAST) {
+            if (this.direction == SOUTH) {
                 var new_y = this.pos.gety() + n;
                 if (new_y >= this.road[this.partRoad].gety()) {
                     n = (new_y - this.road[this.partRoad].gety());
@@ -107,7 +111,7 @@ class Ennemy extends Entity {
                     n = 0;
                 }
             }
-            if (this.direction == WEST) {
+            if (this.direction == NORTH) {
                 var new_y = this.pos.gety() - n;
                 if (new_y <= this.road[this.partRoad].gety()) {
                     n = (new_y - this.road[this.partRoad].gety());

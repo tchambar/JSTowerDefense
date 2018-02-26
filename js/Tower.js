@@ -1,4 +1,3 @@
-
 class Tower extends Entity {
     constructor(canvas, pos, firingRate, damage, criticalLuck, buyPrice) {
         super(pos, canvas);
