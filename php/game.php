@@ -13,8 +13,7 @@
         <?php
             if(isset($_POST["choixmap"])) {
                 echo "<p>Map choisie : " . $_POST["choixmap"] . "</p>";
-                echo '<img id="'.$_POST['choixmap'].'" class="mapsicons" src="../img/'.$_POST['choixmap'].'" alt="une map"/>';
-                echo "<canvas id='gameCanvas' width=\"256\" height=\"256\"></canvas>";
+                echo '<img id="mapimg" class="mapsicons" style="display:none;" src="../img/'.$_POST['choixmap'].'" alt="une map"/>';
             } else {
                 echo "<p>Aucune map choisie...</p>";
             }
