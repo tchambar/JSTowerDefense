@@ -73,7 +73,6 @@ class Ennemy extends Entity {
                         return true;
                     }
                     this.direction = defineDirection(this.pos, road);
-                    //ON CHANGE DE FORME
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
@@ -89,7 +88,6 @@ class Ennemy extends Entity {
                         return true;
                     }
                     this.direction = defineDirection(this.pos, road);
-                    //ON CHANGE DE FORME
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
@@ -105,7 +103,6 @@ class Ennemy extends Entity {
                         return true;
                     }
                     this.direction = defineDirection(this.pos, road);
-                    //ON CHANGE DE FORME
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
@@ -121,7 +118,6 @@ class Ennemy extends Entity {
                         return true;
                     }
                     this.direction = defineDirection(this.pos, road);
-                    //ON CHANGE DE FORME
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
