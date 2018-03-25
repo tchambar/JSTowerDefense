@@ -1,7 +1,7 @@
 /**
  * Created by antoineguillory on 20/02/2018.
  */
-class Pos {
+/*class Pos {
     constructor(posx,posy){
         this.x=posx;
         this.y=posy;
@@ -95,40 +95,41 @@ class Tower extends Entity {
         context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getWidth(), this.getHeight());
         context.closePath();
     }
-}
+}*/
 
 mode = false;
 
 function animationwow(){
-    var posen1 = new Pos(100, 100);
-    var posen2 = new Pos(150, 100);
-    var posen3 = new Pos(200, 100);
-    var posen4 = new Pos(250, 100);
-
-    var postow= new Pos(200, 200);
-    tow = new Tower(postow, "testcanvas",30,30);
-    var ene1 = new Ennemy(posen1, "testcanvas",30,30);
-    var ene2 = new Ennemy(posen2, "testcanvas",30,30);
-    var ene3 = new Ennemy(posen3, "testcanvas",30,30);
-    var ene4 = new Ennemy(posen4, "testcanvas",30,30);
-    var arrenn = [];
-    arrenn[0] = ene1;
-    arrenn[1] = ene2;
-    arrenn[2] = ene3;
-    arrenn[3] = ene4;
-
-
-    tow.draw();
-
     var context = document.getElementById("testcanvas").getContext("2d");
+
+    //var posen1 = new Pos(100, 100);
+    //var posen2 = new Pos(150, 100);
+    var road = [];
+    road[0]= new Pos(100,100);
+    road[1]= new Pos(150,150);
+
+    //var posen3 = new Pos(200, 100);
+    //var posen4 = new Pos(250, 100);
+
+    //var postow= new Pos(200, 200);
+    tow = new Tower("testcanvas", new Pos(300,150),30,30,20,30,30);
+    //var ene2 = new Ennemy(posen2, "testcanvas",30,30);
+    //var ene3 = new Ennemy(posen3, "testcanvas",30,30);
+    //var ene4 = new Ennemy(posen4, "testcanvas",30,30);
+    var arrenn = [];
+    arrenn[0] = new Ennemy("testcanvas",30,1,1,road,30,30);
+    //arrenn[1] = ene2;
+    //arrenn[2] = ene3;
+    //arrenn[3] = ene4;
+
     setInterval(function() {
-        context.canvas.width = context.canvas.width;
         context.drawImage(image,0,0,500,500);
-        testdeplacement(arrenn,tow);
+        testdeplacement(arrenn);
+        tow.draw();
     }, 25);
 }
 
-function testdeplacement(arrenn,arrtow){
+function testdeplacement(arrenn){
     arrenn.forEach(function(enn){
         if(!mode){
             context.beginPath();
@@ -152,12 +153,7 @@ function testdeplacement(arrenn,arrtow){
     });
     tow.draw();
     arrenn.forEach(function(enn) {
-        context.moveTo(enn.getPos().getx(),enn.getPos().gety());
-        context.clearRect(enn.getPos().getx(), enn.getPos().gety(), enn.getHeight(), enn.getWidth());
-        enn.getPos().sety((enn.getPos().gety()+getRandomInt(7)));
-        context.fillStyle = "#FF0000";
-        context.fillRect(enn.getPos().getx(), enn.getPos().gety(), enn.getHeight(), enn.getWidth());
-        context.stroke();
+        enn.drawNextStep();
     });
 }
 

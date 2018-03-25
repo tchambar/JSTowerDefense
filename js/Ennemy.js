@@ -17,6 +17,7 @@ function defineDirection(pos, road) {
                 if (road[i].getx() < road[i+1].getx()) {
                     return EAST;
                 } else {
+
                     return WEST;
                 }
             }
@@ -27,9 +28,9 @@ function defineDirection(pos, road) {
 }
 
 class Ennemy extends Entity {
-    constructor(canvas, maxHp, speed, damage, road) {
-        super(road[0], canvas);
 
+    constructor(canvas, maxHp, speed, damage, road, height, width) {
+        super(road[0], canvas, height, width);
         this.maxHp = maxHp;
         this.hp = maxHp;
         this.speed = speed;
@@ -125,6 +126,26 @@ class Ennemy extends Entity {
             }
         }
         return false;
+    }
+
+    draw() {
+        var context = document.getElementById("testcanvas").getContext("2d");
+        context.beginPath();
+        context.fillStyle = "#FF0000";
+        context.strokeStyle = "#FF0000";
+        context.moveTo(this.getPos().getx(),this.getPos().gety());
+        context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getWidth(), this.getHeight());
+        context.closePath();
+    }
+
+    drawNextStep() {
+        var context = document.getElementById("testcanvas").getContext("2d");
+        context.moveTo(this.getPos().getx(),this.getPos().gety());
+        context.clearRect(this.getPos().getx(), this.getPos().gety(), this.getHeight(), this.getWidth());
+        this.getPos().sety((this.getPos().gety()+getRandomInt(7)));
+        context.fillStyle = "#FF0000";
+        context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getHeight(), this.getWidth());
+        context.stroke();
     }
 
     takeDamage(damage) {
