@@ -11,13 +11,30 @@
         <script src="../js/Ennemy.js"></script>
         <script src="../js/Tower.js"></script>
         <script src="../js/testgame.js"></script>
+        <script src="../js/Utilities.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <?php
             if(isset($_POST["choixmap"])) {
+                //Affichage de la map dans le canvas
                 echo "<p>Map choisie : " . $_POST["choixmap"] . "</p>";
                 echo '<img id="mapimg" class="mapsicons" style="display:none;" src="../img/'.$_POST['choixmap'].'" alt="une map"/>';
+
+                //Valeurs du modèle
+                $txt = str_replace("png","txt",$_POST["choixmap"]);
+                $handle = fopen("../txt/".$txt,"r");
+                echo "<p id='modelmap'>";
+                if ($handle) {
+                    while (($buffer = fgets($handle, 4096)) !== false) {
+                        echo($buffer);
+                    }
+                    if (!feof($handle)) {
+                        echo "Erreur: fgets() a échoué\n";
+                    }
+                    fclose($handle);
+                }
+                echo "</p>";
             } else {
                 echo "<p>Aucune map choisie...</p>";
             }
