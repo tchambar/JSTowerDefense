@@ -27,7 +27,7 @@ function defineDirection(pos, road) {
     return direction;
 }
 
-class Ennemy extends Entity {
+class Enemy extends Entity {
 
     constructor(canvas, maxHp, speed, damage, road, height, width) {
         super(road[0], canvas, height, width);
@@ -62,6 +62,9 @@ class Ennemy extends Entity {
     }
 
     move() {
+        if (this.partRoad == this.road.length) {
+            return true;
+        }
         var n = this.speed;
         while(n != 0) {
             if (this.direction == EAST) {
@@ -73,7 +76,7 @@ class Ennemy extends Entity {
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, road);
+                    this.direction = defineDirection(this.pos, this.road);
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
@@ -88,7 +91,7 @@ class Ennemy extends Entity {
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, road);
+                    this.direction = defineDirection(this.pos, this.road);
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
@@ -103,7 +106,7 @@ class Ennemy extends Entity {
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, road);
+                    this.direction = defineDirection(this.pos, this.road);
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
@@ -118,7 +121,7 @@ class Ennemy extends Entity {
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, road);
+                    this.direction = defineDirection(this.pos, this.road);
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
@@ -136,16 +139,6 @@ class Ennemy extends Entity {
         context.moveTo(this.getPos().getx(),this.getPos().gety());
         context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getWidth(), this.getHeight());
         context.closePath();
-    }
-
-    drawNextStep() {
-        var context = document.getElementById("testcanvas").getContext("2d");
-        context.moveTo(this.getPos().getx(),this.getPos().gety());
-        context.clearRect(this.getPos().getx(), this.getPos().gety(), this.getHeight(), this.getWidth());
-        this.getPos().sety((this.getPos().gety()+getRandomInt(7)));
-        context.fillStyle = "#FF0000";
-        context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getHeight(), this.getWidth());
-        context.stroke();
     }
 
     takeDamage(damage) {
