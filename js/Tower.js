@@ -1,7 +1,8 @@
 class Tower extends Entity {
-    constructor(canvas, pos, firingRate, damage, criticalLuck, buyPrice, height, width) {
+    constructor(canvas, pos, scale, firingRate, damage, criticalLuck, buyPrice, height, width) {
         super(pos, canvas, height, width);
 
+        this.scale = scale;
         this.firingRate = firingRate;
         this.damage = damage;
         this.criticalLuck = criticalLuck;
@@ -9,6 +10,10 @@ class Tower extends Entity {
 
         this.buyPrice = buyPrice;
         this.sellPrice = buyPrice;
+    }
+
+    getScale() {
+        return this.scale;
     }
 
     getFiringRate() {
@@ -20,11 +25,11 @@ class Tower extends Entity {
     }
 
     getCriticalLuck() {
-        return criticalLuck;
+        return this.criticalLuck;
     }
 
     getLevel() {
-        return level;
+        return this.level;
     }
 
     levelUp() {
@@ -32,8 +37,18 @@ class Tower extends Entity {
     }
 
     shoot(e) {
-        // ANIMATION
-        return e.takeDamage(this.damage) == 0;
+        if (e != null) {
+            var context = document.getElementById(this.canvas).getContext("2d");
+            context.beginPath();
+            context.moveTo(e.getPos().getx(), e.getPos().gety());
+            context.fillStyle = "#0000FF";
+            context.strokeStyle = "#0000FF";
+            context.lineTo(this.pos.getx(), this.pos.gety());
+            context.stroke();
+            context.closePath();
+            return (e.takeDamage(this.damage) == 0);
+        }
+        return false;
     }
 
     draw() {
@@ -44,5 +59,27 @@ class Tower extends Entity {
         context.moveTo(this.getPos().getx(),this.getPos().gety());
         context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getWidth(), this.getHeight());
         context.closePath();
+    }
+
+    nearestEnemy(enemies) {
+        var arrayEnemies = Array.from(enemies);
+        if (enemies.size != 0) {
+            var nearestEnemy = arrayEnemies[0];
+            var min = Math.sqrt(Math.pow(this.pos.getx() - nearestEnemy.getPos().getx(), 2)
+                + Math.pow(this.pos.gety() - nearestEnemy.getPos().gety(), 2));
+            for (var i = 1; i < arrayEnemies.length; ++i) {
+                var e = arrayEnemies[i];
+                var dist = Math.sqrt(Math.pow(this.pos.getx() - e.getPos().getx(), 2)
+                    + Math.pow(this.pos.gety() - e.getPos().gety(), 2));
+                if (min > dist) {
+                    nearestEnemy = e;
+                    min = dist;
+                }
+            }
+            if (this.scale >= min) {
+                return nearestEnemy;
+            }
+        }
+        return null;
     }
 }
