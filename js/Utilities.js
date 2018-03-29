@@ -3,11 +3,11 @@
  */
 function getModelRoad(){
     var txt = $("#modelmap").text();
-    var posarr = [];
+    var road = [];
     var arr = txt.split("-");
     arr.forEach(function(t){
-        var subarr = t.split(";");
-        posarr.push(new Pos(subarr[0], subarr[1]));
+        var subroad = t.split(";");
+        road.push(new Pos(subroad[0], subroad[1]));
     });
-    return posarr;
+    return road;
 }

@@ -3,15 +3,7 @@
  */
 
 function play(){
-    var road = [];
-    road[0]= new Pos(100,100);
-    road[1]= new Pos(150,100);
-    road[2]= new Pos(150,150);
-
-    var road2 = [];
-    road2[0]= new Pos(50,100);
-    road2[1]= new Pos(150,100);
-    road2[2]= new Pos(150,150);
+    var road = getModelRoad();
 
     var towers = new Set();
     towers.add(new Tower("testcanvas", new Pos(100,150), 60, 1, 1, 1, 1, 30, 30));
@@ -19,7 +11,6 @@ function play(){
 
     var enemies = new Set();
     enemies.add(new Enemy("testcanvas",30,1,1,road,10,10));
-    enemies.add(new Enemy("testcanvas",30,1,1,road2,20,20));
 
     drawAll(towers, enemies);
 
