@@ -7,6 +7,7 @@ class Game {
         this.road = getModelRoad();
         this.life = initLife;
         this.wave = 0;
+        this.waveIsOngoing = false;
         this.wallet = initWallet;
         this.towers = new Set();
         this.enemies = new Set();
@@ -19,6 +20,18 @@ class Game {
 
     getWave() {
         return this.wave;
+    }
+
+    getWaveIsOngoing() {
+        return this.waveIsOngoing;
+    }
+
+    setEndWave() {
+        this.waveIsOngoing = false;
+    }
+
+    isEnd() {
+        return this.life == 0;
     }
 
     getWallet() {
@@ -36,7 +49,7 @@ class Game {
         }
     }
 
-    addSniperTower(pos) {
+    addDefaultTower(pos) {
         this.addTower(pos, 100, 1, 5, 1, 200);
     }
 
@@ -56,9 +69,6 @@ class Game {
     }
 
     moveAllEnemies() {
-        if (this.enemies.size == 0) {
-            return true;
-        }
         this.activeEnemies.forEach(function(e) {
             if (e.move()) {
                 this.life -= 1;
@@ -68,8 +78,16 @@ class Game {
         return (this.enemies.size == 0 && this.activeEnemies.size == 0);
     }
 
-    drawAll() {
+    drawCanvas() {
+        var context = document.getElementById("testcanvas").getContext("2d");
+        var img = document.getElementById("mapimg");
+        var image = new Image();
+        image.src = img.getAttribute("src");
         context.drawImage(image,0,0,this.hCanvas,this.wCanvas);
+    }
+
+    drawAll() {
+        this.drawCanvas();
         this.towers.forEach(function(t) {
             t.draw();
         });
@@ -88,33 +106,67 @@ class Game {
     }
 
     playOneSecond() {
+        console.log("PlayOneSecond");
         if (this.enemies.size != 0) {
-            this.activeEnemies.add([...this.enemies][0]);
+            console.log("new active enemy");
+            var e = [...this.enemies][0];
+            this.activeEnemies.add(e);
+            this.enemies.delete(e);
         }
         this.drawAll();
         this.shootAll();
         return this.moveAllEnemies();
     }
 
-    lose() {
+    nextWave() {
+        console.log("Next Wave");
+        if (!this.waveIsOngoing) {
+            this.wave += 1;
+            this.createWave();
+            console.log("new wave");
+            this.waveIsOngoing = true;
+        }
+    }
 
+    lose() {
+        console.log("Lose");
     }
 
     play() {
         this.drawAll();
-
-        while(this.life != 0) {
-            this.wave += 1;
-            this.createWave();
-            var end = false;
-            var intervalId = setInterval(function() {
-                if (this.playOneSecond()) {
-                    clearInterval(intervalId);
-                    end = true;
+        this.myDescribe();
+        var intervalId = setInterval(function(game) {
+            console.log("new second");
+            if (game.isEnd()) {
+                game.lose();
+                clearInterval(intervalId);
+            }
+            if (game.getWaveIsOngoing()) {
+                console.log("Wave is ongoing");
+                if (game.playOneSecond()) {
+                    console.log("Wave is finish");
+                    game.setEndWave();
                 }
-            }, 1000);
-            while (!end);
-        }
-        this.lose();
+            }
+            game.myDescribe();
+        }, 1000, this);
+    }
+
+    myDescribe() {
+        console.log("this.canvas : " + this.canvas)
+        console.log("this.hCanvas : " + this.hCanvas)
+        console.log("this.wCanvas : " + this.wCanvas)
+        console.log("this.nbEnemiesWave : " + this.nbEnemiesWave)
+        console.log("this.road : " + this.road)
+        console.log("this.life : " + this.life)
+        console.log("this.wave : " + this.wave)
+        console.log("this.wallet : " + this.wallet)
+        console.log("this.towers.size : " + this.towers.size)
+        console.log("this.enemies.size : " + this.enemies.size)
+        console.log("this.activeEnemies.size : " + this.activeEnemies.size)
+        console.log("this.hTower : " + this.hTower)
+        console.log("this.wTower : " + this.wTower)
+        console.log("this.hEnemy : " + this.hEnemy)
+        console.log("this.wEnemy : " + this.wEnemy)
     }
 }
