@@ -11,6 +11,7 @@
         <script src="../js/Enemy.js"></script>
         <script src="../js/Tower.js"></script>
         <script src="../js/Utilities.js"></script>
+        <script src="../js/Game.js"></script>
         <script src="../js/testgame.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>

@@ -7,7 +7,7 @@ function getModelRoad(){
     var arr = txt.split("-");
     arr.forEach(function(t){
         var subroad = t.split(";");
-        road.push(new Pos(subroad[0], subroad[1]));
+        road.push(new Pos(new Number(subroad[0]), new Number(subroad[1])));
     });
     return road;
 }

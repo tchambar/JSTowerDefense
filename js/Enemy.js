@@ -1,31 +1,7 @@
-let SOUTH = 0;
-let NORTH = 1;
-let EAST = 2;
-let WEST = 3;
-
-function defineDirection(pos, road) {
-    var direction;
-    for (var i = 0; i < road.length; ++i) {
-        if (road[i].equals(pos)) {
-            if (road[i].getx() == road[i+1].getx()) {
-                if (road[i].gety() < road[i+1].gety()) {
-                    direction = SOUTH;
-                } else {
-                    direction = NORTH;
-                }
-            } else {
-                if (road[i].getx() < road[i+1].getx()) {
-                    return EAST;
-                } else {
-
-                    return WEST;
-                }
-            }
-            break;
-        }
-    }
-    return direction;
-}
+SOUTH = 0;
+NORTH = 1;
+EAST = 2;
+WEST = 3;
 
 class Enemy extends Entity {
 
@@ -35,7 +11,10 @@ class Enemy extends Entity {
         this.hp = maxHp;
         this.speed = speed;
         this.damage = damage;
-        this.direction = defineDirection(this.getPos(), road);
+        this.direction = this.defineDirection(road[0], road[1]);
+
+        console.log(road[0].getx() + ":" + road[0].gety() + " ; "
+            + road[1].getx() + ":" + road[1].gety() + " d = " + this.direction);
 
         this.road = road;
         this.partRoad = 1;
@@ -61,6 +40,25 @@ class Enemy extends Entity {
         return this.direction;
     }
 
+
+    defineDirection(pos, posRoad) {
+        if (Number(pos.getx()) == Number(posRoad.getx())) {
+            if (Number(pos.gety()) < Number(posRoad.gety())) {
+                return SOUTH;
+            } else {
+                return NORTH;
+            }
+        }
+        if (Number(pos.gety()) == Number(posRoad.gety())) {
+            if (Number(pos.getx()) < Number(posRoad.getx())) {
+                return EAST;
+            } else {
+                return WEST;
+            }
+        }
+        return -1;
+    }
+
     move() {
         if (this.partRoad == this.road.length) {
             return true;
@@ -71,61 +69,65 @@ class Enemy extends Entity {
                 var new_x = this.pos.getx() + n;
                 if (new_x >= this.road[this.partRoad].getx()) {
                     n = (new_x - this.road[this.partRoad].getx());
-                    this.pos = this.road[this.partRoad];
+                    this.pos.setx(this.road[this.partRoad].getx());
+                    console.log("d : " + this.direction + " partroad" + this.partRoad);
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road);
+                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
+                    console.log("d : " + this.direction);
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
                 }
-            }
-            if (this.direction == WEST) {
+            } else if (this.direction == WEST) {
                 var new_x = this.pos.getx() - n;
                 if (new_x <= this.road[this.partRoad].getx()) {
                     n = (new_x - this.road[this.partRoad].getx());
-                    this.pos = this.road[this.partRoad];
+                    this.pos.setx(this.road[this.partRoad].getx());
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road);
+                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
                 }
-            }
-            if (this.direction == SOUTH) {
+            } else if (this.direction == SOUTH) {
                 var new_y = this.pos.gety() + n;
                 if (new_y >= this.road[this.partRoad].gety()) {
                     n = (new_y - this.road[this.partRoad].gety());
-                    this.pos = this.road[this.partRoad];
+                    this.pos.sety(this.road[this.partRoad].gety());
+                    console.log("d : " + this.direction + " partroad" + this.partRoad);
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road);
+                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
                 }
-            }
-            if (this.direction == NORTH) {
+            } else if (this.direction == NORTH) {
                 var new_y = this.pos.gety() - n;
                 if (new_y <= this.road[this.partRoad].gety()) {
                     n = (new_y - this.road[this.partRoad].gety());
-                    this.pos = this.road[this.partRoad];
+                    this.pos.sety(this.road[this.partRoad].gety());
+
+                    console.log("d : " + this.direction + " partroad" + this.partRoad);
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road);
+                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
                 }
+            } else {
+                break;
             }
         }
         return false;
