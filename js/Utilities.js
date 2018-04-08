@@ -11,3 +11,7 @@ function getModelRoad(){
     });
     return road;
 }
+
+function random_bool() {
+    return (Math.random() >= 0.5);
+}

@@ -23,4 +23,11 @@ class Pos {
     equals(pos){
         return this.x == pos.getx() && this.y == pos.gety();
     }
+
+    copyTo(pos) {
+        if (pos != null) {
+            this.x = pos.getx();
+            this.y = pos.gety();
+        }
+    }
 }

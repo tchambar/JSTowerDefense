@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Choix de la Map</title>
     <link rel="stylesheet" type="text/css" href="../css/home.css">
     <link rel="icon" href="../img/gamepad.png">
@@ -14,25 +14,24 @@
     <form method="post" action="./game.php">
     <?php
         include_once("./credentials.php");
-    echo '<select name="choixmap">';
+    echo '    <select name="choixmap">'.PHP_EOL;
     $dbh = new PDO('mysql:host=mysql-antgui.alwaysdata.net;dbname=antgui_sql', $user, $mdp);
         $stmt = $dbh->query('SELECT * FROM MAPS');
         while ($row = $stmt->fetch()) {
             $ico = $row['MAP_ICON'];
-            echo "<div class='mapsdivs'>";
-            //echo "<p>".$row['MAP_MODEL']."</p>";
-            echo "<option value=\"".$row['MAP_ICON']."\">".$row['MAP_NAME'].'</option>';
-            echo "</div>";
+            echo "              <option class=\"mapsdivs\" value=\"".$row['MAP_ICON']."\">".$row['MAP_NAME'].'</option>'.PHP_EOL;
         }
-    echo '</select>';
+    echo '        </select>'.PHP_EOL;
     $dbh = null;
     $stmt = null;
     ?>
-    <button type="submit">Jouer !</button>
-    <h2>En cours de construction</h2>
+        <button type="submit">Jouer !</button>
+    </form>
+    <h2>Jouez au meilleur jeu photoréaliste de 2018.</h2>
     <footer>
         <?php
             include_once("../html/footer.html");
+            echo PHP_EOL;
         ?>
     </footer>
 </body>

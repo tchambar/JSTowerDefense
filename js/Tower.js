@@ -1,41 +1,26 @@
 class Tower extends Entity {
-    constructor(canvas, pos, scale, firingRate, damage, criticalLuck, buyPrice, height, width) {
+    constructor(canvas, pos, scale, damage, buyPrice, height, width, color) {
         super(pos, canvas, height, width);
 
         this.scale = scale;
-        this.firingRate = firingRate;
         this.damage = damage;
-        this.criticalLuck = criticalLuck;
-        this.level = 1;
-
         this.buyPrice = buyPrice;
-        this.sellPrice = buyPrice;
+        this.color = color;
     }
 
+    getColor(){
+        return this.color;
+    }
+    //Portée de la tour
     getScale() {
         return this.scale;
-    }
-
-    getFiringRate() {
-        return this.firingRate;
     }
 
     getDamage() {
         return this.damage;
     }
 
-    getCriticalLuck() {
-        return this.criticalLuck;
-    }
-
-    getLevel() {
-        return this.level;
-    }
-
-    levelUp() {
-        this.level += 1;
-    }
-
+    //tire vers la position e
     shoot(e) {
         if (e != null) {
             var context = document.getElementById(this.canvas).getContext("2d");
@@ -50,17 +35,18 @@ class Tower extends Entity {
         }
         return false;
     }
-
+    //Dessine la tour courante
     draw() {
-        var context = document.getElementById("testcanvas").getContext("2d");
+        var context = document.getElementById(this.getCanvas()).getContext("2d");
         context.beginPath();
-        context.fillStyle = "#00FF00";
-        context.strokeStyle = "#00FF00";
+        context.fillStyle = this.color;
+        context.strokeStyle = this.color;
         context.moveTo(this.getPos().getx(),this.getPos().gety());
         context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getWidth(), this.getHeight());
         context.closePath();
     }
 
+    //detecte l'ennemi le plus proche
     nearestEnemy(enemies) {
         var arrayEnemies = Array.from(enemies);
         if (enemies.size != 0) {

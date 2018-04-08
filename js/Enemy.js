@@ -38,6 +38,7 @@ class Enemy extends Entity {
         return this.damage;
     }
 
+    //le montant en euros que l'ennemi courant va laisser a sa mort
     getLoot() {
         return this.loot;
     }
@@ -46,7 +47,7 @@ class Enemy extends Entity {
         return this.direction;
     }
 
-
+    //Definit la direction de l'ennemi courant
     defineDirection() {
         var posRoad = this.road[this.partRoad];
         if (Number(this.pos.getx()) == Number(posRoad.getx())) {
@@ -66,6 +67,7 @@ class Enemy extends Entity {
         return -1;
     }
 
+    //Bouge l'ennemi courant
     move() {
         if (this.partRoad == this.road.length) {
             return true;
@@ -136,8 +138,9 @@ class Enemy extends Entity {
         return false;
     }
 
+    //Dessine l'ennemi courant
     draw() {
-        var context = document.getElementById("testcanvas").getContext("2d");
+        var context = document.getElementById(this.canvas).getContext("2d");
         context.beginPath();
         context.fillStyle = "#FF0000";
         context.strokeStyle = "#FF0000";
@@ -145,7 +148,7 @@ class Enemy extends Entity {
         context.fillRect(this.getPos().getx(), this.getPos().gety(), this.getWidth(), this.getHeight());
         context.closePath();
     }
-
+    //l'ennemi prend un dégât
     takeDamage(damage) {
         this.hp = Math.max(this.hp - damage, 0);
         return this.hp;
