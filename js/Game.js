@@ -14,8 +14,8 @@ class Game {
         this.activeEnemies = new Set();
         this.hTower = 30;
         this.wTower = 30;
-        this.hEnemy = 15;
-        this.wEnemy = 15;
+        this.hEnemy = 7;
+        this.wEnemy = 7;
     }
 
     getWave() {
@@ -50,16 +50,16 @@ class Game {
     }
 
     addDefaultTower(pos) {
-        this.addTower(pos, 100, 1, 5, 1, 200);
+        this.addTower(pos, 500, 1, 5, 1, 200);
     }
 
-    addEnemy(maxHp, speed, damage) {
-        this.enemies.add(new Enemy(this.canvas, maxHp, speed, damage,
-            this.road, this.hEnemy, this.wEnemy))
+    addEnemy(maxHp, speed, damage, loot) {
+        this.enemies.add(new Enemy(this.canvas, this.enemies.size + 1, maxHp, speed, damage, loot,
+            this.road, this.hEnemy, this.wEnemy));
     }
 
     addSoldier() {
-        this.addEnemy(30, 5, 1);
+        this.addEnemy(30, 10, 1, 5);
     }
 
     createWave() {
@@ -74,8 +74,8 @@ class Game {
                 this.life -= 1;
                 this.activeEnemies.delete(e);
             }
-        });
-        return (this.enemies.size == 0 && this.activeEnemies.size == 0);
+            console.log("Move " + e.getId() + " " + e.getPos().getx() + " : " + e.getPos().gety());
+        }, this);
     }
 
     drawCanvas() {
@@ -93,29 +93,38 @@ class Game {
         });
         this.activeEnemies.forEach(function(e) {
             e.draw();
+            console.log("Draw " + e.getId() + " " + e.getPos().getx() + " : " + e.getPos().gety());
         });
     }
 
-    shootAll(){
-        this.towers.forEach(function(t) {
-            var e = t.nearestEnemy(this.activeEnemies)
-            if (e != null && t.shoot(e)) {
-                this.activeEnemies.delete(e);
-            }
-        });
+    shootAll() {
+        if (this.activeEnemies.size != 0) {
+            this.towers.forEach(function (t) {
+                var e = t.nearestEnemy(this.activeEnemies);
+                if (e != null && t.shoot(e)) {
+                    this.activeEnemies.delete(e);
+                    this.wallet += e.getLoot();
+                }
+            }, this);
+        }
+    }
+
+    addNewActiveEnemy() {
+        if (this.enemies.size != 0) {
+            console.log("new active enemy");
+            var e = [...this.enemies][0];
+            this.enemies.delete(e);
+            this.activeEnemies.add(e);
+        }
     }
 
     playOneSecond() {
         console.log("PlayOneSecond");
-        if (this.enemies.size != 0) {
-            console.log("new active enemy");
-            var e = [...this.enemies][0];
-            this.activeEnemies.add(e);
-            this.enemies.delete(e);
-        }
-        this.drawAll();
+        this.addNewActiveEnemy();
+        this.moveAllEnemies();
         this.shootAll();
-        return this.moveAllEnemies();
+        this.drawAll();
+        return (this.enemies.size == 0 && this.activeEnemies.size == 0);
     }
 
     nextWave() {
@@ -153,20 +162,20 @@ class Game {
     }
 
     myDescribe() {
-        console.log("this.canvas : " + this.canvas)
-        console.log("this.hCanvas : " + this.hCanvas)
-        console.log("this.wCanvas : " + this.wCanvas)
-        console.log("this.nbEnemiesWave : " + this.nbEnemiesWave)
-        console.log("this.road : " + this.road)
-        console.log("this.life : " + this.life)
-        console.log("this.wave : " + this.wave)
-        console.log("this.wallet : " + this.wallet)
-        console.log("this.towers.size : " + this.towers.size)
-        console.log("this.enemies.size : " + this.enemies.size)
-        console.log("this.activeEnemies.size : " + this.activeEnemies.size)
-        console.log("this.hTower : " + this.hTower)
-        console.log("this.wTower : " + this.wTower)
-        console.log("this.hEnemy : " + this.hEnemy)
-        console.log("this.wEnemy : " + this.wEnemy)
+        console.log("\tthis.canvas : " + this.canvas);
+        console.log("\tthis.hCanvas : " + this.hCanvas);
+        console.log("\tthis.wCanvas : " + this.wCanvas);
+        console.log("\tthis.nbEnemiesWave : " + this.nbEnemiesWave);
+        console.log("\tthis.road : " + this.road);
+        console.log("\tthis.life : " + this.life);
+        console.log("\tthis.wave : " + this.wave);
+        console.log("\tthis.wallet : " + this.wallet);
+        console.log("\ttowers" + [...this.towers]);
+        console.log("\tenemies" + [...this.enemies]);
+        console.log("\tactiveEnemies" + [...this.activeEnemies]);
+        console.log("\tthis.hTower : " + this.hTower);
+        console.log("\tthis.wTower : " + this.wTower);
+        console.log("\tthis.hEnemy : " + this.hEnemy);
+        console.log("\tthis.wEnemy : " + this.wEnemy);
     }
 }

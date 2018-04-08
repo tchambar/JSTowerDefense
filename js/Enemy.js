@@ -5,19 +5,21 @@ WEST = 3;
 
 class Enemy extends Entity {
 
-    constructor(canvas, maxHp, speed, damage, road, height, width) {
-        super(road[0], canvas, height, width);
+    constructor(canvas, id, maxHp, speed, damage, loot, road, height, width) {
+        super(new Pos(road[0].getx(), road[0].gety()), canvas, height, width);
+        this.id = id;
         this.maxHp = maxHp;
         this.hp = maxHp;
         this.speed = speed;
         this.damage = damage;
-        this.direction = this.defineDirection(road[0], road[1]);
-
-        console.log(road[0].getx() + ":" + road[0].gety() + " ; "
-            + road[1].getx() + ":" + road[1].gety() + " d = " + this.direction);
-
+        this.loot = loot;
         this.road = road;
         this.partRoad = 1;
+        this.direction = this.defineDirection();
+    }
+
+    getId() {
+        return this.id;
     }
 
     getMaxHp() {
@@ -36,21 +38,26 @@ class Enemy extends Entity {
         return this.damage;
     }
 
+    getLoot() {
+        return this.loot;
+    }
+
     getDirection() {
         return this.direction;
     }
 
 
-    defineDirection(pos, posRoad) {
-        if (Number(pos.getx()) == Number(posRoad.getx())) {
-            if (Number(pos.gety()) < Number(posRoad.gety())) {
+    defineDirection() {
+        var posRoad = this.road[this.partRoad];
+        if (Number(this.pos.getx()) == Number(posRoad.getx())) {
+            if (Number(this.pos.gety()) < Number(posRoad.gety())) {
                 return SOUTH;
             } else {
                 return NORTH;
             }
         }
-        if (Number(pos.gety()) == Number(posRoad.gety())) {
-            if (Number(pos.getx()) < Number(posRoad.getx())) {
+        if (Number(this.pos.gety()) == Number(posRoad.gety())) {
+            if (Number(this.pos.getx()) < Number(posRoad.getx())) {
                 return EAST;
             } else {
                 return WEST;
@@ -70,13 +77,11 @@ class Enemy extends Entity {
                 if (new_x >= this.road[this.partRoad].getx()) {
                     n = (new_x - this.road[this.partRoad].getx());
                     this.pos.setx(this.road[this.partRoad].getx());
-                    console.log("d : " + this.direction + " partroad" + this.partRoad);
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
-                    console.log("d : " + this.direction);
+                    this.direction = this.defineDirection();
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
@@ -90,7 +95,7 @@ class Enemy extends Entity {
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
+                    this.direction = this.defineDirection();
                 } else {
                     this.pos.setx(new_x);
                     n = 0;
@@ -100,12 +105,11 @@ class Enemy extends Entity {
                 if (new_y >= this.road[this.partRoad].gety()) {
                     n = (new_y - this.road[this.partRoad].gety());
                     this.pos.sety(this.road[this.partRoad].gety());
-                    console.log("d : " + this.direction + " partroad" + this.partRoad);
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
                         return true;
                     }
-                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
+                    this.direction = this.defineDirection();
                 } else {
                     this.pos.sety(new_y);
                     n = 0;
@@ -116,12 +120,11 @@ class Enemy extends Entity {
                     n = (new_y - this.road[this.partRoad].gety());
                     this.pos.sety(this.road[this.partRoad].gety());
 
-                    console.log("d : " + this.direction + " partroad" + this.partRoad);
                     this.partRoad++;
                     if (this.partRoad == this.road.length) {
-                        return true;
+                        return;
                     }
-                    this.direction = defineDirection(this.pos, this.road[this.partRoad]);
+                    this.direction = this.defineDirection();
                 } else {
                     this.pos.sety(new_y);
                     n = 0;

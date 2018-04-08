@@ -11,6 +11,7 @@ $(document).ready(function() {
     var initWallet = 500;
     var game = new Game(canvas, hCanvas, wCanvas,
         nbEnemiesWaves, initLife, initWallet);
+    game.addDefaultTower(new Pos(100,150));
     game.play();
     game.nextWave();
 });
